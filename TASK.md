@@ -5,18 +5,27 @@ From the root directory of the project, run `npm start` to launch both the front
 
 ## Instructions
 
-Create a `/chat` route in the backend and test it with an API client like Postman, Insomnia, or the VS Code extension, Thunder Client.
+Make a POST request in the frontend and display the response
 
-* Add a file called `chat.js` to the `backend/routes/` directory
-* Use it to set up an Express router which will:
-  - Handle POST requests to the `/chat` route
-  - Read the value of a `message` property in the body of the request
-  - Create an object containing this message and a `timeStamp` property whose value should be the current time on the server in HH:MM:SS format
-  - Sends this object in response to the request
-* Integrate the chat router into the Express app in app.js
-* Start your backend
-* In your API client, send a POST request to http://localhost:3000/chat with a body such as `{ message: "Hello World" }`
-* The API client should receive a response like:
-   ```
-   { message: "Hello World", timeStamp: "12:34:56" }
-   ```
+* Create an `api` directory
+  _Q: Where?_
+
+* In this directory create a file called `requests.js`
+* Use this to create a module with a `post()` function that:
+  - Accepts the parameters `endpoint`, `message` and `callback`
+  - Makes a POST request to the given `endpoint` with the given `message`
+  _Q: Is the backend expecting the `message` to be a string or an object?`
+  - Calls the `callback` function with the response from the request  
+  _Q: What command and what options will you use to make the POST request?_  
+  _Q: How will you deal with the asynchronous nature of the request?_  
+  _Q: How will you extract the response from the ReadableStream object that is sent as the response?_  
+* Edit the Messages component in the frontend to:
+  - Make a call to the `post()` function when the Send button is activated  
+  _Q: How will the Messages component receive a pointer to the `post` function?_  
+  _Q: How will the Messages component know which endpoint to use?_
+  - Add a function to pass as the callback argument for `post()`
+  - Render a `<p>` element which will display the result of the POST request
+  - In this callback function, display the `message` and the `timeStamp` from the backend's response  
+  _Q: How will you layout and style the two parts of the response in the `<p>` element?_
+
+Test this by sending different messages and checking that the display in the `<p>` element updates and shows the timeStamp added by the backend.
