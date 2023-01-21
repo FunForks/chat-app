@@ -4,20 +4,19 @@
 From the root directory of the project, run `npm start` to launch both the frontend and the backend.
 
 ## Instructions
-1. Create a `components` directory for the frontend  
-   _Q: What parent directory should you create this in?_
-2. Create a component called `Messages`
-3. This component should have a text input element and a Send button
-4. Import the Messages component into App.js, so that it is rendered
-5. Delete any of the boilerplate code from App.js that is not currently needed
-6. In the Messages component, any change in the text input element should update a variable called `message`
-   _Q: What React hook(s) will you need?_
-7. When you press the Send button, or when you press the Enter key, the current value of `message` should be logged to the Console  
-   _Q: What events will you need to capture, and for which elements?_  
-   _Q: What property of which event will tell you whether the Enter key has been pressed?_  
-   _Q: Which Console will the message be logged in?_ 
 
-Note that there is no requirement to communicate with the backend at this stage.
+Create a `/chat` route in the backend and test it with an API client like Postman, Insomnia, or the VS Code extension, Thunder Client.
 
-When you have finished, commit the changes to your branch.
-Then you can checkout the next official branch (`git checkout 1.1`) and verify that your version has all the expected new features.
+* Add a file called `chat.js` to the `backend/routes/` directory
+* Use it to set up an Express router which will:
+  - Handle POST requests to the `/chat` route
+  - Read the value of a `message` property in the body of the request
+  - Create an object containing this message and a `timeStamp` property whose value should be the current time on the server in HH:MM:SS format
+  - Sends this object in response to the request
+* Integrate the chat router into the Express app in app.js
+* Start your backend
+* In your API client, send a POST request to http://localhost:3000/chat with a body such as `{ message: "Hello World" }`
+* The API client should receive a response like:
+   ```
+   { message: "Hello World", timeStamp: "12:34:56" }
+   ```
