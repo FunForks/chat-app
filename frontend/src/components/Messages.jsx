@@ -8,10 +8,12 @@ import { useState, useEffect, useRef } from 'react'
 
 
 
-export const Messages = () => {
+export const Messages = ({ endpoint, post }) => {
   const [ message, setMessage ] = useState("")
+  const [ incoming, setIncoming ] = useState({})
+
   const inputRef = useRef()
-  
+
 
   const editMessage = event => {
     setMessage(event.target.value)
@@ -26,10 +28,15 @@ export const Messages = () => {
   }
 
 
+  const treatIncomingMessage = ({ message, timeStamp }) => {
+    setIncoming({ message, timeStamp })
+  }
+
+
   const sendMessage = () => {
     if (message) {
-      console.log("message:", message);
-      
+      post(endpoint, message, treatIncomingMessage)
+      setMessage("")
     }
   }
 
@@ -37,6 +44,13 @@ export const Messages = () => {
   useEffect(() => {
     inputRef.current.focus()
   }, [])
+
+
+  const style = {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "12em"
+  }
 
 
   return (
@@ -53,6 +67,15 @@ export const Messages = () => {
       >
         Send
       </button>
+
+      {incoming.message && (
+        <p
+          style={style}
+        >
+          <span>{incoming.message}</span>
+          <span>{incoming.timeStamp}</span>
+        </p>
+      )}
     </div>
   )
 }

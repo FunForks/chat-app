@@ -1,31 +1,27 @@
-# Create a React component to input a chat message #
+# Use long polling #
 
 ## Starting the servers
 From the root directory of the project, run `npm start` to launch both the frontend and the backend.
 
 ## Instructions
 
-Make a POST request in the frontend and display the response
+You are going to create the backend part of the long polling feature. This means creating a system to store the `response` objects from incoming requests to a `/chat/poll` route, rather than using them to send a reply immediately. When a message is received from one client on the standard `/chat` route, you will use the stored responses from the `/chat/poll` route to broadcast the message to other clients.
 
-* Create an `api` directory
-  _Q: Where?_
+In backend/routes/chat.js script:
+* Add a variable called `pollResponses` whose value is an empty array
+* Add a new `/poll` route, which
+  - Accepts POST requests
+  - Pushes the `response` object from the incoming request into the `pollResponses` array, so that you can send a response to the request at an arbitrary time in the future
+* Modify the function for the `/` route so that it also calls a `broadcast` function with the `reply` object as an argument 
+* Create a `broadcast` function which will:
+  - Iterate through the responses stored in the `pollResponses` array
+  - Use each response to send the `reply` to the client that made the associated `/poll` request
+  - Remove the used response from `pollResponses`
 
-* In this directory create a file called `requests.js`
-* Use this to create a module with a `post()` function that:
-  - Accepts the parameters `endpoint`, `message` and `callback`
-  - Makes a POST request to the given `endpoint` with the given `message`
-  _Q: Is the backend expecting the `message` to be a string or an object?`
-  - Calls the `callback` function with the response from the request  
-  _Q: What command and what options will you use to make the POST request?_  
-  _Q: How will you deal with the asynchronous nature of the request?_  
-  _Q: How will you extract the response from the ReadableStream object that is sent as the response?_  
-* Edit the Messages component in the frontend to:
-  - Make a call to the `post()` function when the Send button is activated  
-  _Q: How will the Messages component receive a pointer to the `post` function?_  
-  _Q: How will the Messages component know which endpoint to use?_
-  - Add a function to pass as the callback argument for `post()`
-  - Render a `<p>` element which will display the result of the POST request
-  - In this callback function, display the `message` and the `timeStamp` from the backend's response  
-  _Q: How will you layout and style the two parts of the response in the `<p>` element?_
+To test whether your code is working:
+1. Use an API REST client like Postman or Thunder Client to send a POST request to http://localhost:3000/chat/poll. (This request will not receive an immediate response.)
+2. Use your current browser client to send a message request to http://localhost:3000/chat. At this point, your API client should receive a response to the `/chat/poll` request.
 
-Test this by sending different messages and checking that the display in the `<p>` element updates and shows the timeStamp added by the backend.
+You will have to manually send a new POST request to http://localhost:3000/chat/poll from your API client if you want to receive a new message sent from the browser.
+
+In the next step, you will be editing the frontend code to send such new POST requests automatically as soon as a response is received.

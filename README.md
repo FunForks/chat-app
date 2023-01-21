@@ -12,12 +12,12 @@ You will be creating:
   - Broadcast each message to all connected clients
 
 ## Working through the project
-Each step in the project is stored in a different branch, numbered from 0.0 to 8.6. You are currently in branch `1.2-show-backend-response`.
+Each step in the project is stored in a different branch, numbered from 0.0 to 8.6. You are currently in branch `2.0-add-poll-route`.
 
 1. Read TASK.md to know what you need to work on in this step.
 2. Create a new branch (`git checkout -b <your_branch_name>`) and make your changes there.
 3. When you have finished, commit the changes to your branch.
-4. At this point, you can checkout the next official branch (`git checkout 1.3-use-long-polling`) and verify that your version has all the expected new features.
+4. At this point, you can checkout the next official branch (`git checkout 2.1-use-long-polling`) and verify that your version has all the expected new features.
 5. CHANGELOG.md will contain the list of all the changes made since the previous branch.
 6. You can also run [`git diff`](https://www.toolsqa.com/git/git-diff/) to see a complete log of all changes since the beginning. (Press Shift-Q on your keyboard to exit the diff tool program.)
 7. You can now create a new branch, using either your own work or the official branch as the starting point: `git checkout -b <new_branch_name> <starting_point_branch_name>`. For example:
