@@ -1,0 +1,19 @@
+{
+  "name": "bingo",
+  "lockfileVersion": 2,
+  "requires": true,
+  "packages": {},
+  "scripts": {
+    "show-url": "echo 'backend: http://localhost:3000'",
+    "start-backend": "cd backend && npm start",
+    "start-frontend": "cd frontend && npm start",
+    "start-site": "npm run start-backend & npm run start-frontend",
+    "kill-ports": "npx kill-port 3000 || 1 && npx kill-port 3001 || 1",
+    "start": "npm run show-url && npm run kill-ports && npm run start-site",
+    "build": "react-scripts build",
+    "test": "react-scripts test"
+  },
+  "devDependencies": {
+    "kill-port": "^2.0.1"
+  }
+}
