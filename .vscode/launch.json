@@ -1,0 +1,54 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Jest",
+      "program": "${workspaceFolder}/node_modules/.bin/jest",
+      "args": ["--runInBand"],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "windows": {
+        "program": "${workspaceFolder}/node_modules/jest/bin/jest",
+        "type": "node",
+        "request": "launch",
+        "name": "Jest All"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Backend",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "program": "${workspaceFolder}/backend/bin/www"
+    },
+    {
+      "type": "chrome",
+      "name": "Chrome",
+      "request": "launch",
+      "url": "http://localhost:3001"
+    },
+    {
+      "type": "firefox",
+      "name": "Firefox",
+      "request": "launch",
+      "url": "http://localhost:3001"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Back & Chrome",
+      "configurations": ["Backend", "Chrome"]
+    },
+    {
+      "name": "Back & Firefox",
+      "configurations": ["Backend", "Firefox"]
+    }
+  ]
+}

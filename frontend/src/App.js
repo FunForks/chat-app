@@ -1,17 +1,34 @@
+import { useState, useEffect } from 'react'
+
 import { Messages } from './components/Messages'
-import { post } from './api/requests'
+import { post, startPolling } from './api/requests'
 
 
-// This line is not needed yet, but it will be needed later
+
 const backend = process.env.REACT_APP_BACKEND
-const endpoint = `${backend}/chat`
+const endpoints = {
+  chat: `${backend}/chat`,
+  poll: `${backend}/chat/poll`
+}
 
 
 const App = () => {
+  const [ incoming, setIncoming ] = useState({})
+
+
+  const newMessage = message => {
+    setIncoming(message)
+  }
+
+
+  useEffect(() => startPolling(endpoints.poll, newMessage), [])
+
+
   return (
     <Messages
-      endpoint={endpoint}
+      endpoint={endpoints.chat}
       post={post}
+      incoming={incoming}
     />
   );
 }

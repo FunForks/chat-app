@@ -8,9 +8,9 @@ import { useState, useEffect, useRef } from 'react'
 
 
 
-export const Messages = ({ endpoint, post }) => {
+export const Messages = ({ endpoint, post, incoming }) => {
   const [ message, setMessage ] = useState("")
-  const [ incoming, setIncoming ] = useState({})
+  // const [ incoming, setIncoming ] = useState({})
 
   const inputRef = useRef()
 
@@ -29,7 +29,7 @@ export const Messages = ({ endpoint, post }) => {
 
 
   const treatIncomingMessage = ({ message, timeStamp }) => {
-    setIncoming({ message, timeStamp })
+    // setIncoming({ message, timeStamp })
   }
 
 
